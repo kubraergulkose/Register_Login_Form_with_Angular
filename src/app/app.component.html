@@ -1,0 +1,117 @@
+<div class="main-container-div">
+<div class="button-container-div">
+
+  <button *ngIf="!isLoginSuccess" type="button" class="btn-register btn btn-secondary " data-bs-toggle="modal" data-bs-target="#registerModal">
+    Register Form
+  </button>
+
+  <button *ngIf="!isLoginSuccess" type="button" class="btn-login btn btn-primary " data-bs-toggle="modal" data-bs-target="#loginModal">
+    Login Form
+  </button>
+
+  <div *ngIf="isLoginSuccess" style="text-align:center" >
+    <h2>
+        These informations are secret. You can see the User list from local json file because you have log succesfully!!!
+    </h2>
+
+    <table class="table table-dark" >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Email</th>
+          <th scope="col">Password</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let item of userList; let i = index">
+       <tr>
+          <td>{{i+1}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.password}}</td>
+       </tr>
+      </tbody>
+      </table>
+
+</div>
+</div>
+</div>
+<div  class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="loginModalLabel">Login Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  id="inputEmail4">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email is required</div>
+              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+           </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="inputPassword4">
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+           </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button  type="button" #closebutton class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div  class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="loginModalLabel">Register Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegister()">
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': registered && f_register.email.errors }"  id="inputEmail4">
+            <div *ngIf="registered && f_register.email.errors" class="invalid-feedback">
+              <div *ngIf="f_register.email.errors.required">Email is required</div>
+              <div *ngIf="f_register.email.errors.email">Email must be a valid email address</div>
+           </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': registered && f_register.password.errors }" id="inputPassword4">
+            <div *ngIf="registered && f_register.password.errors" class="invalid-feedback">
+              <div *ngIf="f_register.password.errors.required">Password is required</div>
+           </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputPassword2" class="form-label">Password Reply</label>
+            <input type="password" formControlName="password2" class="form-control" [ngClass]="{ 'is-invalid': registered && f_register.password2.errors}" id="inputPassword5">
+            <div *ngIf="registered && f_register.password2.errors " class="invalid-feedback">
+              <div *ngIf="f_register.password2.errors.required">Password Reply is required</div>
+           </div>
+           <div *ngIf="registered && f_register.password2.errors " class="invalid-feedback">
+            <div *ngIf="f_register.password2.errors.mustMatch">Password and Reply not match</div>
+         </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button  type="button" #closebutton_register class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
